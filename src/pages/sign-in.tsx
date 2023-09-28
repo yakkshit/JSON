@@ -313,7 +313,6 @@ const SignIn = () => {
         <JSONCrackLogo />
         {isPasswordReset ? <ResetPassword /> : <AuthenticationForm />}
       </Paper>
-      <Footer />
     </div>
   );
 };

@@ -49,9 +49,6 @@ export const Navbar = () => {
   return (
     <StyledNavbarWrapper>
       <StyledNavbar>
-        <Left>
-          <JSONCrackLogo />
-        </Left>
         <Middle className="hide-mobile">
           <Button
             component={Link}
