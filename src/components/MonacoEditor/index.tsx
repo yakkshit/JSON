@@ -20,10 +20,10 @@ const editorOptions = {
 };
 
 const StyledWrapper = styled.div`
-  display: grid;
-  height: calc(100vh - 63px);
-  grid-template-columns: 100%;
-  grid-template-rows: minmax(0, 1fr);
+  display: grid; // Added a semicolon here
+  height: calc(100vh - 63px); // Added a semicolon here
+  grid-template-columns: 100%; // Added a semicolon here
+  grid-template-rows: minmax(0, 1fr); // Added a semicolon here
 `;
 
 export const MonacoEditor = () => {
@@ -41,14 +41,15 @@ export const MonacoEditor = () => {
       validate: true,
       allowComments: true,
       enableSchemaRequest: true,
-      ...(jsonSchema && {
-        schemas: [
-          {
-            fileMatch: ["*"],
-            schema: jsonSchema,
-          },
-        ],
-      }),
+      schemas: jsonSchema
+        ? [
+            {
+              uri: "http://example.com/schema.json", // Replace with your schema URI
+              fileMatch: ["*"],
+              schema: jsonSchema, // Parse the JSON schema if it's a string
+            },
+          ]
+        : [],
     });
   }, [jsonSchema, monaco?.languages.json.jsonDefaults]);
 
@@ -75,10 +76,10 @@ export const MonacoEditor = () => {
       <Editor
         height="100%"
         language={fileType}
-        theme={theme}
+        theme={theme === "light" ? "vs-light" : "vs-dark"} // Adjust the theme property
         value={contents}
         options={editorOptions}
-        onValidate={errors => setError(errors[0]?.message)}
+        onValidate={errors => setError(errors[0])}
         onChange={contents => setContents({ contents, skipUpdate: true })}
         loading={<Loading message="Loading Editor..." />}
       />
